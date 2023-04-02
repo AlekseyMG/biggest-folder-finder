@@ -4,7 +4,7 @@ import java.io.File;
 public class Main {
     public static void main(String[] args) {
 
-        String folderPath = "E:/Учеба";
+        String folderPath = "E:/Soft";
         File file = new File(folderPath);
 
         long start = System.currentTimeMillis();
@@ -13,6 +13,7 @@ public class Main {
         ForkJoinPool pool = new ForkJoinPool();
         long size = pool.invoke(calculator);
         System.out.println(size);
+        System.out.println(getHumanReadableSize(size));
 
         //System.out.println(getFolderSize(file));
 
@@ -31,5 +32,24 @@ public class Main {
             sum += getFolderSize(file);
         }
         return sum;
+    }
+
+    public static String getHumanReadableSize(long size) {
+        if (size / 1024 == 0 )
+            return String.valueOf(size) + "B";
+        size = size / 1024;
+        if (size / 1024 == 0 )
+            return String.valueOf(size) + "Kb";
+        size = size / 1024;
+        if (size / 1024 == 0 )
+            return String.valueOf(size) + "Mb";
+        size = size / 1024;
+        if (size / 1024 == 0 )
+            return String.valueOf(size) + "Gb";
+        size = size / 1024;
+        if (size / 1024 == 0 )
+            return String.valueOf(size) + "Tb";
+        size = size / 1024;
+        return String.valueOf(size) + "Pb";
     }
 }
