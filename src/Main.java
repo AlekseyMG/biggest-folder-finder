@@ -1,3 +1,4 @@
+import java.util.HashMap;
 import java.util.concurrent.ForkJoinPool;
 import java.io.File;
 
@@ -55,18 +56,20 @@ public class Main {
     }
 
     public static long getSizeFromHumanReadable(String size) {
-        if (size.contains("B"))
-            return Long.parseLong(size.replaceAll("[^0-9]*", ""));
-        if (size.contains("K"))
-            return Long.parseLong(size.replaceAll("[^0-9]*", "")) * 1024;
-        if (size.contains("M"))
-            return Long.parseLong(size.replaceAll("[^0-9]*", "")) * (long) Math.pow(1024, 2);
-        if (size.contains("G"))
-            return Long.parseLong(size.replaceAll("[^0-9]*", "")) * (long) Math.pow(1024, 3);
-        if (size.contains("T"))
-            return Long.parseLong(size.replaceAll("[^0-9]*", "")) * (long) Math.pow(1024, 4);
-        if (size.contains("P"))
-            return Long.parseLong(size.replaceAll("[^0-9]*", "")) * (long) Math.pow(1024, 5);
-        return 0;
+        HashMap<Character, Integer> char2multiplier = getMultipliers();
+        char sizeFactor = size
+                .replaceAll("[0-9\\s+]+", "")
+                .charAt(0);
+        int multiplier = char2multiplier.get(sizeFactor);
+        long length = multiplier * Long.valueOf(size.replaceAll("[^0-9]", ""));
+        return length;
+    }
+    private static HashMap<Character, Integer> getMultipliers() {
+        char[] multipliers = {'B', 'K', 'M', 'G', 'T', 'P'};
+        HashMap<Character, Integer> char2multiplier = new HashMap<>();
+        for (int i = 0; i < multipliers.length; i++) {
+            char2multiplier.put(multipliers[i], (int) Math.pow(1024, i));
+        }
+        return char2multiplier;
     }
 }
