@@ -3,6 +3,7 @@ import java.util.concurrent.ForkJoinPool;
 import java.io.File;
 
 public class Main {
+    public static char[] multipliers = {'B', 'K', 'M', 'G', 'T', 'P'};
     public static void main(String[] args) {
 
         String folderPath = "E:/PB Download";
@@ -37,15 +38,13 @@ public class Main {
 
     public static String getHumanReadableSize(long size) {
         int i = 0;
-        String[] multipliers = {"B", "Kb", "Mb", "Gb", "Tb", "Pb"};
-        while (true) {
+        for (; i < multipliers.length; i++) {
             if (size / 1024 == 0) {
                 break;
             }
-            i++;
             size = Math.round((double) size / 1024);
         }
-        return String.valueOf(size) + multipliers[i];
+        return String.valueOf(size) + multipliers[i] + (i > 0 ? "b" : "");
     }
 
     public static long getSizeFromHumanReadable(String size) {
@@ -58,7 +57,6 @@ public class Main {
         return length;
     }
     private static HashMap<Character, Integer> getMultipliers() {
-        char[] multipliers = {'B', 'K', 'M', 'G', 'T', 'P'};
         HashMap<Character, Integer> char2multiplier = new HashMap<>();
         for (int i = 0; i < multipliers.length; i++) {
             char2multiplier.put(multipliers[i], (int) Math.pow(1024, i));
