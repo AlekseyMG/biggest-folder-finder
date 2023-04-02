@@ -5,7 +5,7 @@ import java.io.File;
 public class Main {
     public static void main(String[] args) {
 
-        String folderPath = "E:/Телефон 06.05.2020";
+        String folderPath = "E:/PB Download";
         File file = new File(folderPath);
 
         long start = System.currentTimeMillis();
@@ -36,23 +36,16 @@ public class Main {
     }
 
     public static String getHumanReadableSize(long size) {
-
-        if (size / 1024 == 0 )
-            return String.valueOf(size) + "B";
-        size = Math.round((double) size / 1024);
-        if (size / 1024 == 0 )
-            return String.valueOf(size) + "Kb";
-        size = Math.round((double) size / 1024);
-        if (size / 1024 == 0 )
-            return String.valueOf(size) + "Mb";
-        size = Math.round((double) size / 1024);
-        if (size / 1024 == 0 )
-            return String.valueOf(size) + "Gb";
-        size = Math.round((double) size / 1024);
-        if (size / 1024 == 0 )
-            return String.valueOf(size) + "Tb";
-        size = Math.round((double) size / 1024);
-        return String.valueOf(size) + "Pb";
+        int i = 0;
+        String[] multipliers = {"B", "Kb", "Mb", "Gb", "Tb", "Pb"};
+        while (true) {
+            if (size / 1024 == 0) {
+                break;
+            }
+            i++;
+            size = Math.round((double) size / 1024);
+        }
+        return String.valueOf(size) + multipliers[i];
     }
 
     public static long getSizeFromHumanReadable(String size) {
