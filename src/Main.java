@@ -14,7 +14,7 @@ public class Main {
         long size = pool.invoke(calculator);
         System.out.println(size);
         System.out.println(getHumanReadableSize(size));
-
+        System.out.println(getSizeFromHumanReadable("1000M"));
         //System.out.println(getFolderSize(file));
 
         long duration = System.currentTimeMillis() - start;
@@ -51,5 +51,21 @@ public class Main {
             return String.valueOf(size) + "Tb";
         size = size / 1024;
         return String.valueOf(size) + "Pb";
+    }
+
+    public static long getSizeFromHumanReadable(String size) {
+        if (size.contains("B"))
+            return Long.parseLong(size.replaceAll("[^0-9]*", ""));
+        if (size.contains("K"))
+            return Long.parseLong(size.replaceAll("[^0-9]*", "")) * 1024;
+        if (size.contains("M"))
+            return Long.parseLong(size.replaceAll("[^0-9]*", "")) * (long) Math.pow(1024, 2);
+        if (size.contains("G"))
+            return Long.parseLong(size.replaceAll("[^0-9]*", "")) * (long) Math.pow(1024, 3);
+        if (size.contains("T"))
+            return Long.parseLong(size.replaceAll("[^0-9]*", "")) * (long) Math.pow(1024, 4);
+        if (size.contains("P"))
+            return Long.parseLong(size.replaceAll("[^0-9]*", "")) * (long) Math.pow(1024, 5);
+        return 0;
     }
 }
