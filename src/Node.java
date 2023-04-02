@@ -1,5 +1,4 @@
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.io.File;
 
 public class Node {
@@ -49,10 +48,7 @@ public class Node {
         String size = SizeCalculator.getHumanReadableSize(getSize());
         builder.append(folder.getName() + " - " + size + "\n");
         for (Node child : children) {
-            for (int i = 0; i < level; i++) {
-                builder.append("| ");
-            }
-            builder.append("| " + child.toString());
+            builder.append("| ".repeat(level) + child.toString());
         }
         return builder.toString();
     }
