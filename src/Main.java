@@ -5,8 +5,10 @@ public class Main {
     public static void main(String[] args) {
 
         String folderPath = "E:/PB Download";
+        long sizeLimit = 1024 * 1024 * 50; // выводить только файлы более 50Mb
+
         File file = new File(folderPath);
-        Node root = new Node(file);
+        Node root = new Node(file, sizeLimit);
 
         long start = System.currentTimeMillis();
 

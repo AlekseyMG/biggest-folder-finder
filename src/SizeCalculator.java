@@ -15,8 +15,7 @@ public class SizeCalculator {
             }
         }
         return Math.round(value * 100) / 100 + "" +
-                multipliers[multipliers.length - 1] +
-                (i > 0 ? "b" : "");
+                multipliers[multipliers.length - 1];
     }
     public static long getSizeFromHumanReadable(String size) {
         //HashMap<Character, Integer> char2multiplier = getMultipliers();
@@ -24,7 +23,7 @@ public class SizeCalculator {
                 .replaceAll("[0-9\\s+]+", "")
                 .charAt(0);
         int multiplier = char2multiplier.get(sizeFactor);
-        long length = multiplier * Long.valueOf(size.replaceAll("[^0-9]", ""));
+        long length = multiplier * Long.parseLong(size.replaceAll("[^0-9]", ""));
         return length;
     }
     private static HashMap<Character, Integer> getMultipliers() {
