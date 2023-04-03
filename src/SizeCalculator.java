@@ -19,11 +19,17 @@ public class SizeCalculator {
                 multipliers[multipliers.length - 1];
     }
     public static long getSizeFromHumanReadable(String size) {
-        char sizeFactor = size
-                .replaceAll("[0-9\\s+]+", "")
-                .charAt(0);
+        char sizeFactor = 'B';
+        if (!size.replaceAll("[0-9\\s+]*[^BKMGTPБКМГТП]*", "").isEmpty()) {
+            sizeFactor = size
+                    .replaceAll("[0-9\\s+]+", "")
+                    .charAt(0);
+        }
         int multiplier = char2multiplier.get(sizeFactor);
-        long length = multiplier * Long.parseLong(size.replaceAll("[^0-9]", ""));
+        long length = 1;
+        if (!size.replaceAll("[^0-9\\s+]", "").isEmpty()) {
+            length = multiplier * Long.parseLong(size.replaceAll("[^0-9]", ""));
+        }
         return length;
     }
     private static HashMap<Character, Integer> getMultipliers() {
