@@ -3,9 +3,11 @@ import java.io.File;
 
 public class Main {
     public static void main(String[] args) {
-
-        String folderPath = "E:/PB Download";
-        long sizeLimit = 1024 * 1024 * 50; // выводить только файлы более 50Mb
+        ParametersBag bag = new ParametersBag(args);
+        String folderPath = bag.getPath();
+        long sizeLimit = bag.getSizeLimit();
+//        String folderPath = "E:/PB Download";
+//        long sizeLimit = 1024 * 1024 * 50; // выводить только файлы более 50Mb
 
         File file = new File(folderPath);
         Node root = new Node(file, sizeLimit);
