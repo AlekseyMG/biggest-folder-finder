@@ -2,6 +2,7 @@ import java.util.HashMap;
 
 public class SizeCalculator {
     private static char[] multipliers = {'B', 'K', 'M', 'G', 'T', 'P'};
+    private static char[] rusMultipliers = {'Б', 'К', 'М', 'Г', 'Т', 'П'};
     private static HashMap<Character, Integer> char2multiplier = getMultipliers();
     public static String getHumanReadableSize(long size) {
         int i = 0;
@@ -18,7 +19,6 @@ public class SizeCalculator {
                 multipliers[multipliers.length - 1];
     }
     public static long getSizeFromHumanReadable(String size) {
-        //HashMap<Character, Integer> char2multiplier = getMultipliers();
         char sizeFactor = size
                 .replaceAll("[0-9\\s+]+", "")
                 .charAt(0);
@@ -30,6 +30,9 @@ public class SizeCalculator {
         HashMap<Character, Integer> char2multiplier = new HashMap<>();
         for (int i = 0; i < multipliers.length; i++) {
             char2multiplier.put(multipliers[i], (int) Math.pow(1024, i));
+        }
+        for (int i = 0; i < rusMultipliers.length; i++) {
+            char2multiplier.put(rusMultipliers[i], (int) Math.pow(1024, i));
         }
         return char2multiplier;
     }
